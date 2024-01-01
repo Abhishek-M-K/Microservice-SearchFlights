@@ -32,13 +32,19 @@ class CityRepository {
       //current method is returning data as objects in array
       // it will not return updated data
       //below method with returning: true will work only with postgres
-      const city = await City.update(data, {
-        where: {
-          id: cityId,
-        },
-        returning: true,
-        plain: true,
-      });
+      // const city = await City.update(data, {
+      //   where: {
+      //     id: cityId,
+      //   },
+      //   returning: true,
+      //   plain: true,
+      // });
+      // return city;
+
+      //method 2
+      const city = await City.findByPk(cityId);
+      city.name = data.name;
+      await city.save();
       return city;
     } catch (error) {
       console.log("Something went wrong in repository layer", error);
