@@ -5,7 +5,7 @@ class CityService {
     this.cityRepository = new CityRepository();
   }
 
-  async createdCity(data) {
+  async createCity(data) {
     try {
       const city = await this.cityRepository.createCity(data);
       return city;

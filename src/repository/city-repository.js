@@ -1,6 +1,6 @@
 // In Repository we will interact with the models
-const City = require("../models/city"); // require models separately
-// const {City, Airport, etc} =require("../models/index") require the models by destructuring
+//const City = require("../models/city"); // require models separately
+const { City } = require("../models/index"); //require the models by destructuring
 
 class CityRepository {
   async createCity({ name }) {
@@ -29,10 +29,15 @@ class CityRepository {
 
   async updateCity(cityId, data) {
     try {
+      //current method is returning data as objects in array
+      // it will not return updated data
+      //below method with returning: true will work only with postgres
       const city = await City.update(data, {
         where: {
           id: cityId,
         },
+        returning: true,
+        plain: true,
       });
       return city;
     } catch (error) {

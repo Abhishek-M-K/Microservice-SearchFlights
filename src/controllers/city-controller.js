@@ -4,7 +4,7 @@ const cityServiceInstance = new CityService();
 
 const create = async (req, res) => {
   try {
-    const city = await cityServiceInstance.createdCity(req.body);
+    const city = await cityServiceInstance.createCity(req.body);
     return res.status(201).json({
       data: city,
       success: true,
