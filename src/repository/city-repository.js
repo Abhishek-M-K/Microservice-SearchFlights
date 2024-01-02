@@ -1,4 +1,5 @@
 // In Repository we will interact with the models
+const { Op } = require("sequelize");
 //const City = require("../models/city"); // require models separately
 const { City } = require("../models/index"); //require the models by destructuring
 
@@ -65,8 +66,18 @@ class CityRepository {
     }
   }
 
-  async getAllCities() {
+  async getAllCities(filter) {
     try {
+      if (filter.name) {
+        const cities = await City.findAll({
+          where: {
+            name: {
+              [Op.startsWith]: filter.name,
+            },
+          },
+        });
+        return cities;
+      }
       const cities = await City.findAll();
       return cities;
     } catch (error) {
