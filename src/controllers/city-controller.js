@@ -62,6 +62,26 @@ const get = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const cities = await cityServiceInstance.getAllCities();
+    return res.status(200).json({
+      data: cities,
+      success: true,
+      message: "Cities fetched successfully",
+      err: {},
+    });
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "Cannot fetch cities",
+      err: error,
+    });
+  }
+};
+
 const update = async (req, res) => {
   try {
     const response = await cityServiceInstance.updateCity(
@@ -89,5 +109,6 @@ module.exports = {
   create,
   remove,
   get,
+  getAll,
   update,
 };
