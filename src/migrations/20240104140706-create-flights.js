@@ -12,10 +12,7 @@ module.exports = {
       flightNo: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: {
-          args: true,
-          msg: "Flight Number already exists",
-        },
+        unique: true,
       },
       airplaneID: {
         type: Sequelize.INTEGER,
@@ -47,7 +44,7 @@ module.exports = {
       },
       boardingGate: {
         type: Sequelize.STRING,
-        allowNull: false,
+        defaultValue: "A1",
       },
       totalSeats: {
         type: Sequelize.INTEGER,
