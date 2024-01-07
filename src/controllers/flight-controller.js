@@ -1,4 +1,5 @@
 const { FlightService } = require("../services/index");
+const { SuccessCodes, ServerErrors } = require("../utils/status-codes");
 
 const flightServiceInstance = new FlightService();
 
@@ -15,7 +16,7 @@ const create = async (req, res) => {
       flightFare: req.body.flightFare,
     };
     const flight = await flightServiceInstance.createFlight(flightRequestData);
-    return res.status(201).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: flight,
       success: true,
       message: "Flight created successfully",
@@ -23,7 +24,7 @@ const create = async (req, res) => {
     });
   } catch (error) {
     console.log("Something went wrong in controller layer", error);
-    return res.status(500).json({
+    return res.status(ServerErrors.INTERNAL_SERVER_ERROR).json({
       data: {},
       success: false,
       message: "Create flight failed",
@@ -32,6 +33,27 @@ const create = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  try {
+    const response = await flightServiceInstance.getAllFlights(req.query);
+    return res.status(SuccessCodes.OK).json({
+      data: response,
+      success: true,
+      message: "Flights fetched successfully",
+      err: {},
+    });
+  } catch (error) {
+    console.log("Something went wrong in controller layer", error);
+    return res.status(ServerErrors.INTERNAL_SERVER_ERROR).json({
+      data: {},
+      success: false,
+      message: "Not able to fetch flights",
+      err: error,
+    });
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };
