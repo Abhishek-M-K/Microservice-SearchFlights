@@ -35,6 +35,15 @@ class FlightService {
       console.log("Something went wrong in repository layer", error);
     }
   }
+
+  async getFlight(flightID) {
+    try {
+      const flight = await this.flightRepository.getFlight(flightID);
+      return flight;
+    } catch (error) {
+      console.log("Something went wrong in repository layer", error);
+    }
+  }
 }
 
 module.exports = FlightService;
