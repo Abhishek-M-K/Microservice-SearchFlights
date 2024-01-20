@@ -76,7 +76,8 @@ const get = async (req, res) => {
 const update = async (req, res) => {
   try {
     const response = await flightServiceInstance.updateFlight(
-      req.params.id.req.body
+      req.params.id,
+      req.body
     );
     return res.status(SuccessCodes.OK).json({
       data: response,
